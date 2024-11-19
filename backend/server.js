@@ -36,6 +36,17 @@ app.listen(3000, () => {
   console.log('Server listening...');
 });
 
-app.get('/posts/:id', (req, res) => {
+app.get('/posts/', (req, res) => {
   res.status(200).json(posts);
+});
+
+function SearchPostByID(id){
+  return posts.findIndex((posts)=> {
+    return posts.id === Number(id);
+  });
+};
+
+app.get('/posts/:id', (req, res) => {
+  const index = SearchPostByID(req.params.id);
+  res.status(200).json(posts[index]);
 });
