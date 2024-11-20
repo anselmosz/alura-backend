@@ -1,1 +1,9 @@
-AIzaSyCl68P10PeVrmCiUwn0Fqzl5W_VahgF3eo
+API key
+- AIzaSyCl68P10PeVrmCiUwn0Fqzl5W_VahgF3eo
+
+MongoDB login data
+- user: anselmo
+- passwd: toWCJ5sG5rVxjN1P
+
+MongoDB Connection string
+- mongodb+srv://anselmo:<db_password>@cluster0.ezdtb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0

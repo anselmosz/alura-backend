@@ -1,2 +1,2 @@
-./back/node_modules
-./back/apikey.txt
+node_modules
+api-key.txt
