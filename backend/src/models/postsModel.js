@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import ConectarAoBanco from '../config/dbConfig.js';
 const conexao = await ConectarAoBanco(process.env.CONNECTION_STRING); // Conecta ao banco de dados usando a string de conexão fornecida pela variável de ambiente
 
@@ -14,4 +15,11 @@ export async function CriarPost(novoPost) {
   const colecao = db.collection('posts');
 
   return colecao.insertOne(novoPost);
+};
+
+export async function AtualizarPost(id, novoPost) {
+  const db = conexao.db('imersion-instabytes');
+  const colecao = db.collection('posts');
+  const objID = ObjectId.createFromHexString(id);
+  return colecao.updateOne({_id: new ObjectId(objID)}, {$set: novoPost});
 };
