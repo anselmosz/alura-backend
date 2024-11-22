@@ -1,6 +1,7 @@
 // Importa as dependências necessárias:
 import fs from 'fs'; // Módulo do Node.js para interagir com o sistema de arquivos
 import { getAllPosts, CriarPost, AtualizarPost } from '../models/postsModel.js'; // Importa as funções para obter e criar posts do modelo
+import gerarDescricaoComGemini from '../services/geminiService.js';
 
 // Função para listar todos os posts:
 export async function ListPosts(req, res) {
@@ -58,13 +59,17 @@ export async function AtualizaNovoPost(req, res) {
   // Cria um objeto com os dados do novo post, incluindo o nome original da imagem
   const postId = req.params.id;
   const urlImg = `http://localhost:3000/${postId}.png`;
-  const postAtualizado = {
-    imgUrl: urlImg,
-    descricao: req.body.descricao,
-    alt: req.body.alt
-  };
-
+  
   try {
+    const imageBuffer = fs.readFileSync(`uploads/${postId}.png`);
+    const descDetailed = await gerarDescricaoComGemini(imageBuffer)
+
+    const postAtualizado = {
+      imgUrl: urlImg,
+      descricao: descDetailed,
+      alt: req.body.alt
+    };
+
     const postCriado = await AtualizarPost(postId, postAtualizado);
     res.status(200).json(postCriado);
   } catch (erro) {
