@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import cors from 'cors';
-import { ListPosts, CriarNovoPost, UploadImagem, AtualizaNovoPost } from '../controller/postscController.js';
+import { ListPosts, CriarNovoPost, UploadImagem, AtualizaNovoPost } from '../controller/Controller.js';
 
 const corsOptions = {
   origin : "http://localhost:8000",

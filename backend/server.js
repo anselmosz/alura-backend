@@ -1,6 +1,6 @@
 // Importa o framework Express para criar a aplicação web
 import express from 'express';
-import Routes from './src/routes/postsRoutes.js';
+import Routes from './src/routes/Routes.js';
 
 const app = express();
 app.use(express.static("uploads"))

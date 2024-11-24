@@ -1,6 +1,6 @@
 // Importa as dependências necessárias:
 import fs from 'fs'; // Módulo do Node.js para interagir com o sistema de arquivos
-import { getAllPosts, CriarPost, AtualizarPost, ExcluirPost } from '../models/postsModel.js'; // Importa as funções para obter e criar posts do modelo
+import { getAllPosts, CriarPost, AtualizarPost, ExcluirPost } from '../models/Models.js'; // Importa as funções para obter e criar posts do modelo
 import gerarDescricaoComGemini from '../services/geminiService.js';
 
 // Função para listar todos os posts:
