@@ -16,7 +16,7 @@ const Routes = (app) => {
   app.get('/posts', ListPosts); // Define uma rota GET para o endpoint '/posts'
   app.post('/posts', CriarNovoPost); // Define uma rota POST para enviar um novo objeto para o endpint '/posts'
   app.post('/upload', upload.single('imagem'), UploadImagem); // Define uma rota POST para enviar um novo objeto através da função UploadImagem
-  app.put('/upload/:id', AtualizaNovoPost);
+  app.put('/upload/:id', AtualizaNovoPost); // define uma rota do tipo PUT para um objeto referenciado pelo id na url
 }
 
 export default Routes;
