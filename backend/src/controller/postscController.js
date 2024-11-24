@@ -1,6 +1,6 @@
 // Importa as dependências necessárias:
 import fs from 'fs'; // Módulo do Node.js para interagir com o sistema de arquivos
-import { getAllPosts, CriarPost, AtualizarPost } from '../models/postsModel.js'; // Importa as funções para obter e criar posts do modelo
+import { getAllPosts, CriarPost, AtualizarPost, ExcluirPost } from '../models/postsModel.js'; // Importa as funções para obter e criar posts do modelo
 import gerarDescricaoComGemini from '../services/geminiService.js';
 
 // Função para listar todos os posts:
@@ -91,3 +91,20 @@ export async function AtualizaNovoPost(req, res) {
     res.status(500).json({'erro' : 'Falha na requisição'});
   }
 };
+
+// Função para deletar um objeto do banco de dados
+export async function DeletarPost(req, res) {
+  // Obtém o ID do post a ser atualizado a partir dos parâmetros da requisição
+  const postId = req.params.id;
+
+  try {
+    const postDeletado = await ExcluirPost(postId)
+    res.status(200).json(postDeletado)
+
+  } catch (erro) {
+    // Imprime o erro no console
+    console.error(erro.message);
+    // Envia uma resposta HTTP com status 500 (erro interno do servidor) e uma mensagem de erro
+    res.status(500).json({'erro' : 'Falha na requisição'})
+  };
+}

@@ -35,3 +35,16 @@ export async function AtualizarPost(id, novoPost) {
   return colecao.updateOne({_id: new ObjectId(objID)}, {$set: novoPost});
 }
 
+export async function ExcluirPost(id) {
+  // Conecta ao banco de dados 'imersion-instabytes'
+  const db = conexao.db('imersion-instabytes');
+
+  // Seleciona a coleção 'posts' dentro do banco de dados
+  const colecao = db.collection('posts');
+
+  // Converte o ID do post em um objeto ObjectId do MongoDB
+  const objID = ObjectId.createFromHexString(id);
+
+  // Atualiza o post com o ID especificado, substituindo os campos com os novos valores
+  return colecao.deleteOne({_id: new ObjectId(objID)});
+}
