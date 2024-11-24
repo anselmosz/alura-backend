@@ -1,4 +1,4 @@
-node_modules
-api-key.txt
+node_modules/
+backend/apikey.txt
 .env
 uploads/
