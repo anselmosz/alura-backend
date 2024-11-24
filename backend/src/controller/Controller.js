@@ -34,7 +34,7 @@ export async function UploadImagem(req, res) {
   // Cria um objeto com os dados do novo post, incluindo o nome original da imagem
   const novoPost = {
     descricao: "",
-    imgUrl: req.file.originalname,
+    imgLink: req.file.originalname,
     alt: ""
   };
   // Tenta criar o novo post e renomear a imagem
@@ -73,7 +73,7 @@ export async function AtualizaNovoPost(req, res) {
 
     // Cria um objeto com os dados atualizados do post, incluindo a URL da imagem, a descrição detalhada e a tag alt
     const postAtualizado = {
-      imgUrl: urlImg,
+      imgLink: urlImg,
       descricao: descDetailed,
       alt: req.body.alt
     };
@@ -98,13 +98,19 @@ export async function DeletarPost(req, res) {
   const postId = req.params.id;
 
   try {
+    // Deleta o post no banco de dados
     const postDeletado = await ExcluirPost(postId)
-    res.status(200).json(postDeletado)
 
-  } catch (erro) {
-    // Imprime o erro no console
-    console.error(erro.message);
-    // Envia uma resposta HTTP com status 500 (erro interno do servidor) e uma mensagem de erro
-    res.status(500).json({'erro' : 'Falha na requisição'})
+    if (postDeletado.deletedCount === 0) {
+      return res.status(404).json({ error: 'Post não encontrado' });
+    }
+
+    // Deleta a imagem associada ao post
+    await ExcluirPost(postId);
+
+    res.status(200).json({ message: 'Post e imagem deletados com sucesso' });
+  } catch (error) {
+    console.error('Erro ao deletar post ou imagem:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
   };
 }
